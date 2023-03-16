@@ -2,6 +2,9 @@ import sys, os
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 import nltk
+import openpyxl
+from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
+import itertools
 
 form_class = uic.loadUiType("./application.ui")[0]
 input_path_list = []
@@ -33,16 +36,43 @@ class MyWindow(QMainWindow, form_class):
             fine_text  = fine_text.split('"')
             fine_text=[nltk.sent_tokenize(fine_text) for fine_text in fine_text]
             fine_text=[element for array in fine_text for element in fine_text]
-            print(fine_text[0])
+            if(len(fine_text) > 1):
+                fine_text = list(itertools.chain(*fine_text))
+            
+            self.create_xlsx(path, fine_text)
+        
+        self.msg = QMessageBox()
+        self.msg.setIcon(QMessageBox.Information)
+        self.msg.setWindowTitle('Success')
+        self.msg.setText('작업 완료.')
+        self.msg.setStandardButtons(QMessageBox.Ok)
+        retval = self.msg.exec_()
             
     def read_txt(self, path):
         with open(path, "rt", encoding='UTF8') as file:
             text=file.read().replace('\n',' ').replace('  ',' ')
         return text;
+    
+    def create_xlsx(self, path, data):
+        global input_path_list
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        for row in data:
+            try:
+                ws.append([row])
+            except:
+                ws.append([ILLEGAL_CHARACTERS_RE.sub(r'', row)])
+        save_path = path.split(".")[0] + "_result.xlsx"
+        wb.save(save_path)
+        wb.close()
+        
+        input_path_list = []
+        self.pathText.setText('')
+        return True
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     myWindow = MyWindow()
-    myWindow.setWindowTitle("TXT TO EXCEL")
+    myWindow.setWindowTitle("NAN ROW TXT TO EXCEL")
     myWindow.show()
     app.exec_()

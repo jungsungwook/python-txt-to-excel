@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>743</width>
-    <height>241</height>
+    <height>351</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
       <x>10</x>
       <y>10</y>
       <width>721</width>
-      <height>121</height>
+      <height>241</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -60,8 +60,8 @@
        <rect>
         <x>110</x>
         <y>10</y>
-        <width>571</width>
-        <height>41</height>
+        <width>591</width>
+        <height>181</height>
        </rect>
       </property>
       <property name="acceptDrops">
@@ -274,8 +274,8 @@
    <widget class="QPushButton" name="process_start_btn">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>150</y>
+      <x>530</x>
+      <y>270</y>
       <width>191</width>
       <height>28</height>
      </rect>
