@@ -4,10 +4,17 @@
 - setuptools == 58.1.0
 
 ## VENV GUIDE
+create env : 
+
+    py -[python-version] -m venv [folder-name]
+    ex >  py -3.9 -m venv env
+
 use project env(package) : 
 
-    .\env\Scripts\activate
+    .\[folder-name]\Scripts\activate
+    ex > .\env\Scripts\activate
 
 use local env(package) : 
 
-    .\env\Scripts\deactivate || deactivate
+    .\[folder-name]\Scripts\deactivate || deactivate
+    ex > .\env\Scripts\deactivate || deactivate
