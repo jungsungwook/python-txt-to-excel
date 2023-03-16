@@ -36,8 +36,7 @@ class MyWindow(QMainWindow, form_class):
             fine_text  = fine_text.split('"')
             fine_text=[nltk.sent_tokenize(fine_text) for fine_text in fine_text]
             fine_text=[element for array in fine_text for element in fine_text]
-            if(len(fine_text) > 1):
-                fine_text = list(itertools.chain(*fine_text))
+            fine_text = list(itertools.chain(*fine_text))
             
             self.create_xlsx(path, fine_text)
         
@@ -61,7 +60,7 @@ class MyWindow(QMainWindow, form_class):
             try:
                 ws.append([row])
             except:
-                ws.append([ILLEGAL_CHARACTERS_RE.sub(r'', row)])
+                ws.append([ILLEGAL_CHARACTERS_RE.sub(r'', str(row))])
         save_path = path.split(".")[0] + "_result.xlsx"
         wb.save(save_path)
         wb.close()
